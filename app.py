@@ -44,7 +44,7 @@ def get_from_wemos():
                 time_boolean_ref = db.child("Elderly").child("John Doe").child(drug).child("didTake").child(time.key())
                 if time_boolean_ref.val() == "False":
                     db.child("Elderly").child("John Doe").child(drug).child("didTake").update({time.key():"True"})
-                break;
+                break
 
     return True
 
@@ -52,10 +52,24 @@ def get_from_wemos():
 def index():
     return "Hello"
 
-@app.route("/doctor", methods='POST')
+@app.route("/doctor", methods=["GET", "POST"])
 def doctor():
     if request.method=='POST':
         medication = request.form['medication']
-        medication_dict = json.loads(medication)
+        dosage = request.form["dosage"]
+        times = request.form["tags"]
+        times_list = times.split(",")
 
-        db.child("Elderly").child("John Doe").update({medication})
+        data = {
+            medication:{
+                "Dosage":dosage,
+                "Times":{},
+                "hasTaken":{}
+            }
+        }
+
+        for i in range(0, len(times_list)):
+            data[medication]["Times"][i] = times_list[i]
+            data[medication]["hasTaken"][i] = "False"
+
+        db.child("Elderly").child("John Doe").update(data) #update medication and dosage
