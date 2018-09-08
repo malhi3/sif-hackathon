@@ -57,3 +57,5 @@ def doctor():
     if request.method=='POST':
         medication = request.form['medication']
         medication_dict = json.loads(medication)
+
+        db.child("Elderly").child("John Doe").update({medication})
