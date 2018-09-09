@@ -50,7 +50,7 @@ def get_from_wemos():
 
 @app.route("/")
 def index():
-    return "Hello"
+    return "Hi"
 
 @app.route("/doctor", methods=["GET", "POST"])
 def doctor():
@@ -73,3 +73,9 @@ def doctor():
             data[medication]["hasTaken"][i] = "False"
 
         db.child("Elderly").child("John Doe").update(data) #update medication and dosage
+
+@app.route("/doctorprof")
+def profile():
+    return render_template("doctor.html")
+
+
