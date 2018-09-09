@@ -31,8 +31,7 @@ def get_from_wemos():
     global new_val
     global drug
     if request.method == 'POST':
-        new_val = request.form['new_val']
-        drug = request.form['drug']
+        print request.data
         prev_val = db.child("Elderly").child("John Doe").child(drug).get()
         if new_val<prev_val:
             db.child("Elderly").child("John Doe").child(drug).update({"prev_val":str(new_val)}) #update previous value
@@ -77,6 +76,8 @@ def doctor():
             data[medication]["hasTaken"][i] = "False"
 
         db.child("Elderly").child("John Doe").update(data) #update medication and dosage
+
+    return True
 
 @app.route("/doctorprof")
 def profile():
