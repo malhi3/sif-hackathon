@@ -74,12 +74,14 @@
 	function submit(){
 		medication_elmnt = document.getElementById("medication-field");
 		dosage_elmnt = document.getElementById("dosage-field");
+		slot_elmnt = document.getElementById("slot-field")
 		medication = medication_elmnt.value;
 		dosage = dosage_elmnt.value;
+		slot = slot_elmnt.value;
 		$.ajax({
 			type: "POST",
 			url: "/doctor",
-			data: {tags: tags.toString(), medication:medication, dosage:dosage},
+			data: {tags: tags.toString(), medication:medication, dosage:dosage, slot:slot},
 			success: function(result){
 				window.location.href = '/success';
 			}
@@ -113,8 +115,11 @@
 		<input type="text" id="medication-field" placeholder="E.g. paracetamol">
 		<h2>Enter the dosage (number of pills to be taken)</h2>
 		<input type="text" id="dosage-field" placeholder="E.g. 3">
+		<h2>Which section of pill box?</h2>
+		<p>(enter the slot number)</p>
+		<input type="text" id="slot-field" placeholder="E.g. 1">
 		<h2>Enter the times of the day it is to be taken</h2>
-		<p>(press comma in between each time slot)</p>
+		<p>(press comma in between each time slot)</p>		
 		<input type="text" id="time-field" onKeyUp="commaSeparation(event)">
 		<div id="tag_div">
 		</div>

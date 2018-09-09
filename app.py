@@ -23,27 +23,38 @@ firebase = pyrebase.initialize_app(config)
 
 db = firebase.database()
 
-new_val = 150
-drug = "Paracetamol"
+medication_slot_dict = {}
+value_medication_dict = {}
 
 @app.route("/wemos", methods=['POST'])
 def get_from_wemos():
-    global new_val
-    global drug
+    global value_medication_dict
+    global medication_slot_dict
     if request.method == 'POST':
-        print request.data
-        prev_val = db.child("Elderly").child("John Doe").child(drug).get()
-        if new_val<prev_val:
-            db.child("Elderly").child("John Doe").child(drug).update({"prev_val":str(new_val)}) #update previous value
-            db.child("Elderly").child("John Doe").child(drug).update({"new_val":str(new_val)}) #update new value
-            time_array = db.child("Elderly").child("John Doe").child(drug).child("Time").get()
-            current_time = str(datetime.datetime.now())[11:16]
-            current_time = timeToInt(current_time)
-            for time in time_array.each():
-                time_boolean_ref = db.child("Elderly").child("John Doe").child(drug).child("didTake").child(time.key())
-                if time_boolean_ref.val() == "False":
-                    db.child("Elderly").child("John Doe").child(drug).child("didTake").update({time.key():"True"})
-                break
+        data = request.data
+        data_list = data.split(" ")
+        # i = 0
+        # for val in data:
+        #     value_medication_dict[medication_slot_dict[i]] = val
+        #     i+=1
+
+        elderly_user = db.child("Elderly").child("John Doe").get()
+
+        for drug in elderly_user.each():
+            slot_no = drug.child("slot_no").val()
+            prev_val = drug.child("new_val").val()
+            new val = data_list[int(slot_no)]
+            drug.update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
+
+            if new_val<prev_val:
+                time_array = drug.child("Time").get()
+                current_time = str(datetime.datetime.now())[11:16]
+                current_time = timeToInt(current_time)
+                for time in time_array.each():
+                    time_boolean_ref = drug.child("didTake").child(time.key())
+                    if time_boolean_ref.val() == "False":
+                        db.child("Elderly").child("John Doe").child(drug).child("didTake").update({time.key():"True"})
+                    break
 
     return "Success"
 
@@ -54,10 +65,13 @@ def index():
 @app.route("/doctor", methods=["GET", "POST"])
 def doctor():
     if request.method=='POST':
+        slot = request.form["slot"]
         medication = request.form['medication']
+        #medication_slot_dict[slot] = medication
         dosage = request.form["dosage"]
         times = request.form["tags"]
         times_list = times.split(",")
+
         print medication
         print dosage
         print times_list
@@ -67,7 +81,9 @@ def doctor():
                 "Dosage":dosage,
                 "Times":{},
                 "hasTaken":{}
-            }
+            }, new_val: 50,
+            prev_val: 50,
+            slot_no: slot
         }
         print data
 
@@ -77,7 +93,7 @@ def doctor():
 
         db.child("Elderly").child("John Doe").update(data) #update medication and dosage
 
-    return True
+    return "Success"
 
 @app.route("/doctorprof")
 def profile():
