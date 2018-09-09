@@ -43,7 +43,7 @@ def get_from_wemos():
         for drug in elderly_user.each():
             slot_no = drug.child("slot_no").val()
             prev_val = drug.child("new_val").val()
-            new val = data_list[int(slot_no)]
+            new_val = data_list[int(slot_no)]
             drug.update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
 
             if new_val<prev_val:
