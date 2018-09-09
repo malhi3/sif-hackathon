@@ -51,8 +51,8 @@ def get_from_wemos():
                 current_time = str(datetime.datetime.now())[11:16]
                 current_time = timeToInt(current_time)
                 print time_array
-                for time in time_array:
-                    if drug.val()["didTake"][time] == "False":
+                for i in range(0, len(time_array)):
+                    if drug.val()["didTake"][i] == "False":
                         db.child("Elderly").child("John Doe").child(drug.key()).child("didTake").update({time.key():"True"})
                         break
 
