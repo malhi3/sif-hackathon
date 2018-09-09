@@ -47,7 +47,7 @@ def get_from_wemos():
             drug.update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
 
             if new_val<prev_val:
-                time_array = drug.val().["Time"]
+                time_array = drug.val()["Time"]
                 current_time = str(datetime.datetime.now())[11:16]
                 current_time = timeToInt(current_time)
                 for time in time_array:
