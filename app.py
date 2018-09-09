@@ -52,7 +52,7 @@ def get_from_wemos():
                 current_time = timeToInt(current_time)
                 for time in time_array:
                     if time_array[time] == "False":
-                        db.child("Elderly").child("John Doe").child(drug).child("didTake").update({time.key():"True"})
+                        db.child("Elderly").child("John Doe").child(drug.key()).child("didTake").update({time.key():"True"})
                     break
 
     return "Success"
