@@ -59,6 +59,9 @@ def doctor():
         dosage = request.form["dosage"]
         times = request.form["tags"]
         times_list = times.split(",")
+        print medication
+        print dosage
+        print times_list
 
         data = {
             medication:{
@@ -78,4 +81,7 @@ def doctor():
 def profile():
     return render_template("doctor.html")
 
+@app.route("/success")
+def success():
+    return render_template("success.html")
 
