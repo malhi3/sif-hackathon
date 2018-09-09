@@ -53,7 +53,7 @@ def get_from_wemos():
                 print time_array
                 for i in range(0, len(time_array)):
                     if drug.val()["didTake"][i] == "False":
-                        db.child("Elderly").child("John Doe").child(drug.key()).child("didTake").update({time.key():"True"})
+                        db.child("Elderly").child("John Doe").child(drug.key()).child("didTake").update({i:"True"})
                         break
 
     return "Success"
