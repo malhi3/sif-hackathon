@@ -44,7 +44,7 @@ def get_from_wemos():
             slot_no = drug.val()["slot_no"]
             prev_val = drug.val()["new_val"]
             new_val = data_list[int(slot_no)]
-            drug.update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
+            db.child("Elderly").child("John Doe").child(drug.key()).update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
 
             if new_val<prev_val:
                 time_array = drug.val()["Time"]
