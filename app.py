@@ -41,8 +41,8 @@ def get_from_wemos():
         elderly_user = db.child("Elderly").child("John Doe").get()
 
         for drug in elderly_user.each():
-            slot_no = drug.val().["slot_no"]
-            prev_val = drug.val().["new_val"]
+            slot_no = drug.val()["slot_no"]
+            prev_val = drug.val()["new_val"]
             new_val = data_list[int(slot_no)]
             drug.update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
 
