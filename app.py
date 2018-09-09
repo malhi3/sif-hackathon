@@ -70,6 +70,7 @@ def doctor():
                 "hasTaken":{}
             }
         }
+        print data
 
         for i in range(0, len(times_list)):
             data[medication]["Times"][i] = times_list[i]
