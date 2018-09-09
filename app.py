@@ -79,16 +79,18 @@ def doctor():
         data = {
             medication:{
                 "Dosage":dosage,
-                "Times":{},
+                "Time":{},
                 "hasTaken":{}
-            }, "new_val": 50,
+            }
+            "new_val": 50,
             "prev_val": 50,
             "slot_no": slot
         }
+        
         print data
 
         for i in range(0, len(times_list)):
-            data[medication]["Times"][i] = times_list[i]
+            data[medication]["Time"][i] = times_list[i]
             data[medication]["hasTaken"][i] = "False"
 
         db.child("Elderly").child("John Doe").update(data) #update medication and dosage
