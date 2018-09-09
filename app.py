@@ -52,7 +52,7 @@ def get_from_wemos():
                 current_time = timeToInt(current_time)
                 print time_array
                 for time in time_array:
-                    if time_array[time] == "False":
+                    if drug.val()["didTake"][time] == "False":
                         db.child("Elderly").child("John Doe").child(drug.key()).child("didTake").update({time.key():"True"})
                         break
 
@@ -80,7 +80,7 @@ def doctor():
             medication:{
                 "Dosage":dosage,
                 "Time":{},
-                "hasTaken":{},
+                "didTake":{},
                 "new_val": 50,
                 "prev_val": 50,
                 "slot_no": slot
@@ -89,7 +89,7 @@ def doctor():
 
         for i in range(0, len(times_list)):
             data[medication]["Time"][i] = times_list[i]
-            data[medication]["hasTaken"][i] = "False"
+            data[medication]["didTake"][i] = "False"
 
         print data
         db.child("Elderly").child("John Doe").update(data) #update medication and dosage
