@@ -81,9 +81,9 @@ def doctor():
                 "Dosage":dosage,
                 "Times":{},
                 "hasTaken":{}
-            }, new_val: 50,
-            prev_val: 50,
-            slot_no: slot
+            }, "new_val": 50,
+            "prev_val": 50,
+            "slot_no": slot
         }
         print data
 
