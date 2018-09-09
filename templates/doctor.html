@@ -44,7 +44,7 @@
 			tags.push(tag_text);
 			addTag(tag_text);
 			input_field.value = '';
-			window.alert(tags);
+			//window.alert(tags);
 		}
 		return
 	}
@@ -66,7 +66,7 @@
 		new_button = document.createElement("button");
 		new_button.innerHTML = tag_text;
 		new_button.setAttribute("id", tag_text);
-		new_button.setAttribute("class", "btn");
+		new_button.setAttribute("class", "btn tag-btn");
 		new_button.setAttribute("onClick", "deleteTag(event)");
 		parent.appendChild(new_button);
 	}
@@ -98,13 +98,68 @@
 		color: white;
 		border: solid 1px;
 		padding: 10px 40px;
-		background-color: red;
+		background-color: #0030FF;
 		font-size: 20px;
+		margin: 20px;
+		border-radius: 50px;
+		-o-transition:.5s;
+ 		-ms-transition:.5s;
+  		-moz-transition:.5s;
+  		-webkit-transition:.5s;
+		transition: .4s;
 	}
 	
 	.btn:focus{
 		outline: none;
 	}
+	
+	.btn:hover{
+		background-color: #001EA1;
+	}
+	
+	.tag-btn{
+		background-color: #FFDB82;
+		font-size: 15px;
+		padding: 10px;
+		color: black;
+		margin: 10px;
+		border-radius: 5px;
+		-o-transition:.5s;
+ 		-ms-transition:.5s;
+  		-moz-transition:.5s;
+  		-webkit-transition:.5s;
+		transition: .2s;
+	}
+	
+	.tag-btn:hover{
+		background-color: red;
+		color: white;
+	}
+	
+	#form-container{
+		position: absolute;
+		text-align: center;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	input{
+		border: none;
+		border-bottom: solid 2px;
+		font-size: 20px;
+	}
+	
+	input:focus{
+		outline: none;
+	}
+	
+	h2{
+		font-size: 30px;
+		margin-top: 40px;
+	}
+	
 </style>
 </head>
 
@@ -120,7 +175,7 @@
 		<input type="text" id="slot-field" placeholder="E.g. 1">
 		<h2>Enter the times of the day it is to be taken</h2>
 		<p>(press comma in between each time slot)</p>		
-		<input type="text" id="time-field" onKeyUp="commaSeparation(event)">
+		<input type="text" id="time-field" placeholder="E.g. 04:30, 16:00" onKeyUp="commaSeparation(event)">
 		<div id="tag_div">
 		</div>
 		<button id="submit" name="submit" class="btn" onClick="submit()">Submit</button>
