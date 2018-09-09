@@ -45,7 +45,7 @@ def get_from_wemos():
                     db.child("Elderly").child("John Doe").child(drug).child("didTake").update({time.key():"True"})
                 break
 
-    return True
+    return "Success"
 
 @app.route("/")
 def index():
