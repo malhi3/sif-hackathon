@@ -41,17 +41,17 @@ def get_from_wemos():
         elderly_user = db.child("Elderly").child("John Doe").get()
 
         for drug in elderly_user.each():
-            slot_no = drug.child("slot_no").val()
-            prev_val = drug.child("new_val").val()
+            slot_no = drug.val().child("slot_no").val()
+            prev_val = drug.val().child("new_val").val()
             new_val = data_list[int(slot_no)]
             drug.update({"prev_val":str(prev_val), "new_val": new_val}) #updates new and prev val values
 
             if new_val<prev_val:
-                time_array = drug.child("Time").get()
+                time_array = drug.val().child("Time").get()
                 current_time = str(datetime.datetime.now())[11:16]
                 current_time = timeToInt(current_time)
                 for time in time_array.each():
-                    time_boolean_ref = drug.child("didTake").child(time.key())
+                    time_boolean_ref = drug.val().child("didTake").child(time.key())
                     if time_boolean_ref.val() == "False":
                         db.child("Elderly").child("John Doe").child(drug).child("didTake").update({time.key():"True"})
                     break
